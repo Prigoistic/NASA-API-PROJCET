@@ -1,13 +1,11 @@
 import React from 'react';
 
 const Main = ({ data }) => {
-  // Determine if the media is a video or image
   const isVideo = data.media_type === 'video';
   
   return (
     <div className="imgContainer">
       {isVideo ? (
-        // For YouTube videos, transform URL to embed format
         <iframe
           className="bgimage"
           src={data.url.replace('youtube.com/watch?v=', 'youtube.com/embed/')}
