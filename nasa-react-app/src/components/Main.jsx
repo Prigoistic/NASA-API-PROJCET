@@ -1,9 +1,32 @@
-export default function Main(props){
-    const {data} = props
-    return(
-    <div className="imgContainer">
-        <img className="bgimage" src={data.hdurl} alt={data.title || 'bg image'} />
+import React from 'react';
 
+const Main = ({ data }) => {
+  // Determine if the media is a video or image
+  const isVideo = data.media_type === 'video';
+  
+  return (
+    <div className="imgContainer">
+      {isVideo ? (
+        // For YouTube videos, transform URL to embed format
+        <iframe
+          className="bgimage"
+          src={data.url.replace('youtube.com/watch?v=', 'youtube.com/embed/')}
+          title={data.title}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      ) : (
+        
+        <img 
+          className="bgimage" 
+          src={data.hdurl || data.url} 
+          alt={data.title || 'APOD media'} 
+        />
+      )}
+      <div className="bgGradient" />
     </div>
-    )
-}
+  );
+};
+
+export default Main;
